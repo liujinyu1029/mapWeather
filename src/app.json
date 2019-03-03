@@ -3,8 +3,8 @@
   // First is default to view
   // https://mp.weixin.qq.com/debug/wxadoc/dev/framework/config.html#pages
   "pages": [
-    "pages/map/map",
     "pages/search/search",
+    "pages/map/map",
     "pages/index/index",
     "pages/demo/demo"
     // Dont remove this comment

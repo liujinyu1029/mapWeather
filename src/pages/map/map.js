@@ -1,34 +1,31 @@
 var amapFile = require('../../libs/amap-wx.js'); //如：..­/..­/libs/amap-wx.js
+// 高德key
+const mapKey = '04f82e56c0fd2d2c504749f0ea1480c0';
+// 获取全局应用程序实例对象
+const app = getApp()
+
 Page({
   data: {
-    markers: [{
-      // iconPath: "../../img/mapicon_navi_s.png",
-      id: 0,
-      latitude: 39.989643,
-      longitude: 116.481028,
-    }, {
-      // iconPath: "../../img/mapicon_navi_e.png",
-      id: 0,
-      latitude: 39.90816,
-      longitude: 116.434446,
-      width: 24,
-      height: 34
-    }],
+    markers: [],
     distance: '',
-    cost: '',
     polyline: []
   },
-  onLoad: function () {
+  onLoad: function (opation) {
+    this.getApiData()
     var that = this;
-    var distance_50 = 2000 // 以固定距离取点
-    var distanceAddUp = 0
+    let distance_50 = 2000 // 以固定距离取点
+    let distanceAddUp = 0
+    let {
+      origin,
+      destination
+    } = opation || {}
     
     var myAmapFun = new amapFile.AMapWX({
-      key: '04f82e56c0fd2d2c504749f0ea1480c0'
+      key: mapKey
     });
     myAmapFun.getDrivingRoute({
-      origin: '116.481028,39.989643',
-      destination: '116.434446,39.90816',
+      origin,
+      destination,
       success: function (data) {
         var points = [];
         var markers = [];
@@ -53,8 +50,6 @@ Page({
             })
           })
         })
-       
-        console.log(11, markers)
         that.setData({
           polyline: [{
             points: points,
@@ -62,17 +57,21 @@ Page({
             width: 6
           }],
           markers
-        });
-        
-        // if (data.paths[0] && data.paths[0].distance) {
-        //   that.setData({
-        //     distance: data.paths[0].distance + '米'
-        //   });
-        // }
-        
+        });  
       },
       fail: function (info) {
-
+      }
+    })
+  },
+  getApiData(){
+    wx.request({
+      url: 'https://way.weatherdt.com/tianyi/webgis_rain_new?lat=35.9&lon=116.5&serialNo=1000512&appkey=28368882e7af97daf9b91f0dd279a5d5',
+      data:{},
+      success(res){
+        console.log(111,res)
+      },
+      fail(error){
+        console.log(222, error)
       }
     })
   },

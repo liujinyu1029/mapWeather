@@ -110,7 +110,7 @@ Page({
       return;
     }
     var url = '../map/map?origin=' + originLocation + '&destination=' + destinationLocation;
-    wx.redirectTo({
+    wx.navigateTo({
       url: url
     })
   }
