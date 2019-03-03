@@ -1,0 +1,7 @@
+.container {
+background: #eee;
+}
+.input1 {
+    border: 1rpx solid #eee;
+    display: block
+}

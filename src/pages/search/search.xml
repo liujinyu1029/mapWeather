@@ -1,0 +1,5 @@
+<view class="container">
+  <input class="input1" placeholder="请输入出发地" auto-focus />
+  <input class="input2" placeholder="请输入终点" auto-focus />
+  <button type="default" bindtap="">查询</button>
+</view>
