@@ -1,7 +1,23 @@
 .container {
-background: #eee;
+  background: #fff;
+  min-height: 100%;
+  padding-bottom: 50px;
+  box-sizing: border-box;
 }
-.input1 {
-    border: 1rpx solid #eee;
-    display: block
+.input {
+  height: 45px;
+  padding: 10px;
+  box-sizing: border-box;
+  border: 1rpx solid #eee;
+  display: block;
+  margin: 10px 0;
+}
+.section{
+  width: 100%;
+  background: #fff;
+}
+.text_box{
+  margin: 10px 0px;
+  border-bottom:1px solid #c3c3c3;
+  padding-bottom:10px
 }

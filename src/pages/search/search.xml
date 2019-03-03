@@ -1,5 +1,11 @@
 <view class="container">
-  <input class="input1" placeholder="请输入出发地" auto-focus />
-  <input class="input2" placeholder="请输入终点" auto-focus />
-  <button type="default" bindtap="">查询</button>
+  <input bindinput="bindInput" class="input" value="{{destinationInputValue}}" data-type="destination" placeholder="请输入出发地" focus="true" />
+  <input bindinput="bindInput" class="input" value="{{originInputValue}}" data-type="origin" placeholder="请输入终点" auto-focus />
+  <button type="default" bindtap="bindSkipMap">查询</button>
+  <view class="section">
+    <view bindtouchstart="bindSearch" data-keywords="{{i.name}}" data-location="{{i.location}}" class="text_box" wx:for="{{tips}}" wx:for-item="i" wx:key="{{i.id}}">
+      {{i.name}}
+    </view>
+  </view> 
 </view>
+ 
