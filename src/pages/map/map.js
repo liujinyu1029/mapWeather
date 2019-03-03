@@ -20,7 +20,7 @@ Page({
   },
   onLoad: function () {
     var that = this;
-    var distance_50 = 50000
+    var distance_50 = 2000 // 以固定距离取点
     var distanceAddUp = 0
     
     var myAmapFun = new amapFile.AMapWX({
@@ -31,43 +31,44 @@ Page({
       destination: '116.434446,39.90816',
       success: function (data) {
         var points = [];
-        (data.paths || []).forEach(v => {
-          (v.steps || []).forEach(vv => {
-            vv.polyline.split(';').forEach(vvv=>{
-              points.push({
-                longitude: parseFloat(vvv.split(',')[0]),
-                latitude: parseFloat(vvv.split(',')[1])
+        var markers = [];
+        ((data.paths || [{}])[0].steps || []).forEach(step => {
+          // 以固定距离取点
+          (step.tmcs || []).forEach(tmc =>{
+            distanceAddUp += +tmc.distance || 0
+            if (distanceAddUp > distance_50) {
+              let point = tmc.polyline.split(';')[0]
+              markers.push({
+                longitude: parseFloat(point.split(',')[0]),
+                latitude: parseFloat(point.split(',')[1])
               })
+              distanceAddUp = 0
+            }
+          })
+          // 获取路线点集合
+          step.polyline.split(';').forEach(point => {
+            points.push({
+              longitude: parseFloat(point.split(',')[0]),
+              latitude: parseFloat(point.split(',')[1])
             })
           })
         })
-        // 以固定距离取点
-        points.forEach(v=>{
-          distanceAddUp
-        })
-
-        console.log(points,11)
+       
+        console.log(11, markers)
         that.setData({
           polyline: [{
             points: points,
             color: "#0091ff",
             width: 6
-          }]
-        });
-        var markers = []
-        points.forEach((v,i)=>{
-          if(i%20==0){
-            markers.push(v)
-          }
-        })
-        that.setData({
+          }],
           markers
-        })
-        if (data.paths[0] && data.paths[0].distance) {
-          that.setData({
-            distance: data.paths[0].distance + '米'
-          });
-        }
+        });
+        
+        // if (data.paths[0] && data.paths[0].distance) {
+        //   that.setData({
+        //     distance: data.paths[0].distance + '米'
+        //   });
+        // }
         
       },
       fail: function (info) {
