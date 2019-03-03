@@ -154,7 +154,7 @@ gulp.task('extras', [], () => {
 /**
  * Build
  */
-gulp.task('build', ['lint'], next => runSequence(['compile', 'extras'], next))
+gulp.task('build', [], next => runSequence(['compile', 'extras'], next))
 
 /**
  * Watch source change

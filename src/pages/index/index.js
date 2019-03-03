@@ -7,7 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    title: 'Index page',
+    title: 'Index2332 page',
     userInfo: {}
   },
   /**
